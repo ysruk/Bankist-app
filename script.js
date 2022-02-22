@@ -81,7 +81,18 @@ const displayMovements = function (movements) {
 }
 displayMovements(account1.movements);
 
-console.log(containerMovements.innerHTML);
+const createUsernames = function(accs){
+  accs.forEach(function(acc) {
+    acc.username = acc.owner
+    .toLowerCase() 
+    .split(' ')
+    .map(name => name[0])
+    .join(''); 
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -124,3 +135,20 @@ const eurToUsd = 1.1;
 const movementsUSD = movements.map(mov => mov * eurToUsd);
 
 console.log(movementsUSD);
+
+const movementsDescriptions = movements.map((mov, i) => {
+
+  `Movements ${i + 1}: You ${mov > 0 ? 'deposited' : ''} ${Math.abs(mov)}`
+
+/*  if (mov > 0) {
+    return `Movements ${i + 1}: You deposited ${mov} `;
+  }else {
+    return `Movements ${i + 1}: You withdrew ${Math.abs(mov)}`;
+  } */
+});
+console.log(movementsDescriptions); 
+
+const deposits = movements.filter(function(mov) {
+  return mov > 0;
+});
+console.log(movements);
